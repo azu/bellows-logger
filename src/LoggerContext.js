@@ -2,6 +2,7 @@
 "use strict";
 // Logger Context object
 import SourceNode from "./nodes/SourceNode";
+import DestinationNode from "./nodes/DestinationNode";
 import LoggerNodeGraph from "./LoggerNodeGraph";
 export default class LoggerContext {
     constructor(logQueue) {
@@ -14,6 +15,20 @@ export default class LoggerContext {
         const sourceNode = new SourceNode();
         this._sourceNodes.push(sourceNode);
         return sourceNode;
+    }
+
+    /**
+     * create DestinationNode with `callback(chunk)`
+     * @param {function(chunk:*)} callback
+     * @returns {DestinationNode}
+     */
+    createDestinationNode(callback) {
+        class SubDestinationNode extends DestinationNode {
+            process(chunk, next) {
+                callback(chunk);
+            }
+        }
+        return new SubDestinationNode();
     }
 
     /**

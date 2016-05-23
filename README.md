@@ -1,4 +1,4 @@
-# concept-logger
+# bellows-logger
 
 POC logger 
 
@@ -23,15 +23,68 @@ We call log data as **Chunk**.
 
 Install with [npm](https://www.npmjs.com/):
 
-    npm install concept-logger
+    npm install bellows-logger
 
 ## Usage
 
-- [ ] Write usage instructions
+Basic usage of Logger class
+
+```js
+const logger = new Logger();
+logger.log("you can log it!");
+// logger add the log to queue
+logger.start()
+// actually start logging
+// buffering logs are prune at this timing
+logger.log("you can log it!");
+// log log log
+```
+
+But, bellows-logger have not default behavior.
+You can extensible behavior of logger using `LoggerNode`.
+
+This architecture is inspired by Web Audio API.
+
+You can write `ConsoleNode` that output to `console.log`:
+
+```js
+import LoggerNode from "../src/nodes/LoggerNode";
+class ConsoleNode extends LoggerNode {
+    process(chunk, next) {
+        // parentNode name
+        const parentNodeName = this.parentNode.name || "<annonymouse>";
+        console.log(" => " + parentNodeName + " => ", chunk);
+        // call next node and pass data
+        next(chunk);
+    }
+}
+```
+
+And use the `ConsoleNode` by `connect` method:
+
+```js
+const logger = new Logger();
+// source == input node
+const sourceNode = logger.context.createSourceNode();
+const consoleNode = new ConsoleNode();
+// connect
+sourceNode.connect(consoleNode);
+// Now, Log actural output to `console`
+
+logger.log("Yay!!!");// show "Yay!!!" in console
+```
+
+Node Tree:
+
+```
+├──enter: root
+	├──enter: SourceNode
+		├──enter: ConsoleNode
+```
 
 ## Changelog
 
-See [Releases page](https://github.com/azu/concept-logger/releases).
+See [Releases page](https://github.com/azu/bellows-logger/releases).
 
 ## Running tests
 
@@ -42,7 +95,7 @@ Install devDependencies and Run `npm test`:
 ## Contributing
 
 Pull requests and stars are always welcome.
-For bugs and feature requests, [please create an issue](https://github.com/azu/concept-logger/issues).
+For bugs and feature requests, [please create an issue](https://github.com/azu/bellows-logger/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`

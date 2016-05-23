@@ -1,19 +1,19 @@
 {
-  "name": "concept-logger",
+  "name": "bellows-logger",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/azu/concept-logger.git"
+    "url": "git+https://github.com/azu/bellows-logger.git"
   },
   "author": "azu",
   "email": "azuciao@gmail.com",
-  "homepage": "https://github.com/azu/concept-logger",
+  "homepage": "https://github.com/azu/bellows-logger",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/azu/concept-logger/issues"
+    "url": "https://github.com/azu/bellows-logger/issues"
   },
   "version": "1.0.0",
   "description": "POC logger ",
-  "main": "lib/concept-logger.js",
+  "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
