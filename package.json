@@ -1,0 +1,38 @@
+{
+  "name": "concept-logger",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azu/concept-logger.git"
+  },
+  "author": "azu",
+  "email": "azuciao@gmail.com",
+  "homepage": "https://github.com/azu/concept-logger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azu/concept-logger/issues"
+  },
+  "version": "1.0.0",
+  "description": "POC logger ",
+  "main": "lib/concept-logger.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/",
+    "build": "NODE_ENV=production babel src --out-dir lib --source-maps",
+    "watch": "babel src --out-dir lib --watch --source-maps",
+    "prepublish": "npm run --if-present build"
+  },
+  "keywords": [
+    "logger"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-jsdoc-to-assert": "^1.0.1",
+    "babel-preset-power-assert": "^1.0.0",
+    "babel-register": "^6.9.0",
+    "mocha": "^2.4.5",
+    "power-assert": "^1.4.1"
+  }
+}
