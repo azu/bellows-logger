@@ -2,8 +2,11 @@
 "use strict";
 const assert = require("power-assert");
 import Logger from "../src/Logger";
-import LoggerNode from "../src/node/LoggerNode";
-import QueryNode from "../src/node/QueryNode";
+import LoggerNode from "../src/nodes/LoggerNode";
+import QueryNode from "./fixtures/nodes/QueryNode";
+import SyncNode from "./fixtures/nodes/SyncNode";
+import AsyncNode from "./fixtures/nodes/ASyncNode";
+import createProcess from "./fixtures/nodes/ProcessNode";
 class TransformNode extends LoggerNode {
     process(chunk, next) {
         chunk.name = "HAL";
@@ -19,12 +22,99 @@ class ConsoleNode extends LoggerNode {
 }
 describe("Logger", function () {
     // sync
-    context("when sync pipeline", () => {
-
+    context("when connect SyncNode", () => {
+        it("should work logging after start", function () {
+            const logger = new Logger();
+            const sourceNode = logger.context.createSourceNode();
+            const syncNode = new SyncNode();
+            const expectedChunk = {data: 1};
+            let isCalled = false;
+            sourceNode.connect(syncNode).connect(createProcess((chunk, next) => {
+                isCalled = true;
+                assert.deepEqual(chunk, expectedChunk);
+            }));
+            logger.start();
+            // log after start
+            logger.log(expectedChunk);
+            assert(isCalled);
+        });
+        it("should work logging before start", function () {
+            const logger = new Logger();
+            const sourceNode = logger.context.createSourceNode();
+            const syncNode = new SyncNode();
+            const expectedChunk = {data: 1};
+            let isCalled = false;
+            // log before start
+            logger.log(expectedChunk);
+            sourceNode.connect(syncNode).connect(createProcess((chunk, next) => {
+                isCalled = true;
+                assert.deepEqual(chunk, expectedChunk);
+            }));
+            logger.start();
+            assert(isCalled);
+        });
     });
-    // multiple
     // async
-    it("log ", function () {
+    context("when connect AsyncNode", () => {
+        it("should work logging after start", function (done) {
+            const logger = new Logger();
+            const sourceNode = logger.context.createSourceNode();
+            const async = new AsyncNode();
+            const expectedChunk = {data: 1};
+            sourceNode.connect(async).connect(createProcess((chunk, next) => {
+                assert.deepEqual(chunk, expectedChunk);
+                done();
+            }));
+            logger.start();
+            // log after start
+            logger.log(expectedChunk);
+        });
+        it("should work logging before start", function () {
+            const logger = new Logger();
+            const sourceNode = logger.context.createSourceNode();
+            const async = new AsyncNode();
+            const expectedChunk = {data: 1};
+            // log before start
+            logger.log(expectedChunk);
+            sourceNode.connect(async).connect(createProcess((chunk, next) => {
+                assert.deepEqual(chunk, expectedChunk);
+                done();
+            }));
+            logger.start();
+        });
+    });
+    context("when connect AsyncNode -> SyncNode", () => {
+        it("should work logging after start", function (done) {
+            const logger = new Logger();
+            const sourceNode = logger.context.createSourceNode();
+            const sync = new SyncNode();
+            const async = new AsyncNode();
+            const expectedChunk = {data: 1};
+            sourceNode.connect(async).connect(sync).connect(createProcess((chunk, next) => {
+                assert.deepEqual(chunk, expectedChunk);
+                done();
+            }));
+            logger.start();
+            // log after start
+            logger.log(expectedChunk);
+        });
+        it("should work logging before start", function (done) {
+            const logger = new Logger();
+            const sourceNode = logger.context.createSourceNode();
+            const async = new AsyncNode();
+            const sync = new SyncNode();
+            const expectedChunk = {data: 1};
+            // log before start
+            logger.log(expectedChunk);
+            sourceNode.connect(async).connect(sync).connect(createProcess((chunk, next) => {
+                assert.deepEqual(chunk, expectedChunk);
+                done();
+            }));
+            logger.start();
+        });
+    });
+    // async
+    it("complex example", function () {
         const logger = new Logger();
         const consoleNode = new ConsoleNode();
         const addNameNode = new TransformNode();

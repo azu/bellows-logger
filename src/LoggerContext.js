@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 // Logger Context object
-import SourceNode from "./node/SourceNode";
+import SourceNode from "./nodes/SourceNode";
 import LoggerNodeGraph from "./LoggerNodeGraph";
 export default class LoggerContext {
     constructor(logQueue) {
