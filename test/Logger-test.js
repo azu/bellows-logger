@@ -2,8 +2,8 @@
 "use strict";
 const assert = require("power-assert");
 import Logger from "../src/Logger";
-import LoggerNode from "../src/Nodes/LoggerNode";
-import QueryNode from "../src/Nodes/QueryNode";
+import LoggerNode from "../src/node/LoggerNode";
+import QueryNode from "../src/node/QueryNode";
 class TransformNode extends LoggerNode {
     process(chunk, next) {
         chunk.name = "HAL";
@@ -19,6 +19,9 @@ class ConsoleNode extends LoggerNode {
 }
 describe("Logger", function () {
     // sync
+    context("when sync pipeline", () => {
+
+    });
     // multiple
     // async
     it("log ", function () {
