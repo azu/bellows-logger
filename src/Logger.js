@@ -1,34 +1,31 @@
 // LICENSE : MIT
 "use strict";
 import LogQueue from "./LogQueue";
-// Logger Context object
-import SourceNode from "./Nodes/SourceNode";
-import LoggerNodeGraph from "./Nodes/LoggerNodeGraph";
+import LoggerContext from "./LoggerContext";
+/**
+ * Logger is log interface.
+ * @example
+ *  const logger = new Logger();
+ *  logger.log("you can log it!");
+ *  // logger add the log to queue
+ *  logger.start()
+ *  // actually start logging
+ *  // buffering logs are prune at this timing
+ *  logger.log("you can log it!");
+ *  // log log log
+ */
 export default class Logger {
     constructor() {
         this._isStarted = false;
-        this._sourceNodes = [];
-        this.logQueue = new LogQueue();
-        this.nodeGraph = new LoggerNodeGraph();
+        this._logQueue = new LogQueue();
+        this._loggerContext = new LoggerContext(this._logQueue);
     }
 
-    createSourceNode() {
-        const sourceNode = new SourceNode();
-        this._sourceNodes.push(sourceNode);
-        return sourceNode;
-    }
-
-    process() {
-        const logs = this.logQueue.consumeLogs();
-        logs.forEach(logChunk => {
-            this._sourceNodes.forEach(sourceNode => {
-                sourceNode.processIfNecessary(logChunk);
-            });
-        });
-    }
-
-    getNodeGraph() {
-        return this.nodeGraph.build(this._sourceNodes);
+    /**
+     * @returns {LoggerContext}
+     */
+    get context() {
+        return this._loggerContext;
     }
 
     /**
@@ -36,18 +33,22 @@ export default class Logger {
      * @param {*} chunk
      */
     log(chunk) {
-        this.logQueue.addLog(chunk);
+        // if not started the logger, only add log to queue
+        this._logQueue.addLog(chunk);
         if (this._isStarted) {
-            this.process();
+            this._loggerContext.process();
         }
     }
 
+    /**
+     * Start logging
+     */
     start() {
         if (this._isStarted) {
             return;
         }
-        // start
-        this.process();
+        // start process
+        this._loggerContext.process();
         this._isStarted = true;
     }
 }

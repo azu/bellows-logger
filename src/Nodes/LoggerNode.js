@@ -1,25 +1,46 @@
 // LICENSE : MIT
 "use strict";
+/**
+ * LoggerNode is abstract Node interface.
+ * LoggerNode connect next LoggerNode.
+ * It is called "pipeline" mechanism.
+ * @example
+ *  sourceNode.connect(nextLoggerNode).connect(destinationNode);
+ *
+ **/
 export default class LoggerNode {
     constructor() {
         this.connections = [];
         this.name = this.displayName || this.constructor.name || "<dummy>";
+        // runtime information
+        this.parentNode = null;
     }
 
-    process(chunk) {
-        throw new Error("Should be implemented!");
+    /**
+     * LoggerNode main process
+     * Should be override by sub classes implementation
+     * @param {*} chunk chunk data is any type
+     * @param {function(*)} next call the `next(chunk)` function after finish the process
+     */
+    process(chunk, next) {
+        throw new Error(`Should be implemented!
+class YourNode extends LoggerNode{
+    process(chunk, next){
+        // process
+        next(chunk);
+    }
+}
+`);
     }
 
-    processIfNecessary(chunk, parentNode) {
-        // prevent infinite loop when audio graph has feedback
-        // if (this.context.currentSampleFrame <= this.currentSampleFrame) {
-        //     return;
-        // }
-        // => console.log(chunk);
-        const resultChunk = this.process(chunk, parentNode) || chunk;
-        // => console.log(chunk);
-        this.outputs.forEach(outputNode => {
-            outputNode.processIfNecessary(resultChunk, this);
+    processIfNecessary(currentChunk, parentNode) {
+        // TODO: prevent infinite loop when audio graph has feedback
+        this.parentNode = parentNode;
+        this.process(currentChunk, (nextChunk) => {
+            this.parentNode = null;
+            this.outputs.forEach(outputNode => {
+                outputNode.processIfNecessary(nextChunk, this);
+            });
         });
     }
 

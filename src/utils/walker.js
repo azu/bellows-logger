@@ -7,7 +7,7 @@ export function walk(ast, {enter, leave}) {
 const context = {
     skip: () => context.shouldSkip = true
 };
-let childKeys = {};
+const childKeys = {};
 const toString = Object.prototype.toString;
 function isArray(thing) {
     return toString.call(thing) === '[object Array]';

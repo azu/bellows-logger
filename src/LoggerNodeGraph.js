@@ -6,7 +6,7 @@
  * @property {LoggerNode} node
  * @property {LeafNode[]} children
  */
-import {walk} from "./walker";
+import {walk} from "./utils/walker";
 /**
  * Create Logger Node Dependencies Graph and traverser it
  */

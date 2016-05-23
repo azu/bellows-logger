@@ -5,27 +5,32 @@ import Logger from "../src/Logger";
 import LoggerNode from "../src/Nodes/LoggerNode";
 import QueryNode from "../src/Nodes/QueryNode";
 class TransformNode extends LoggerNode {
-    process(chunk) {
+    process(chunk, next) {
         chunk.name = "HAL";
-        return chunk;
+        next(chunk);
     }
 }
 class ConsoleNode extends LoggerNode {
-    process(chunk, parentNode) {
-        console.log(" => " + parentNode.name + " => ", chunk);
+    process(chunk, next) {
+        const parentNodeName = this.parentNode.name || "<annonymouse>";
+        console.log(" => " + parentNodeName + " => ", chunk);
+        next(chunk);
     }
 }
 describe("Logger", function () {
+    // sync
+    // multiple
+    // async
     it("log ", function () {
         const logger = new Logger();
         const consoleNode = new ConsoleNode();
         const addNameNode = new TransformNode();
         const queryNode = new QueryNode();
-        const sourceNode = logger.createSourceNode();
+        const sourceNode = logger.context.createSourceNode();
         sourceNode.connect(addNameNode).connect(consoleNode);
         addNameNode.connect(queryNode).connect(consoleNode);
 
-        const nodeGraph = logger.getNodeGraph();
+        const nodeGraph = logger.context.createNodeGraph();
         console.log(JSON.stringify(nodeGraph.root, null, 4));
         const stack = [];
         nodeGraph.traverse({
