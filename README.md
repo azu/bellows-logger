@@ -2,7 +2,7 @@
 
 ![bellows](./docs/img/bellows.png)
 
-Flexible logger library for JavaScript.
+Flexible/Connectable logger library for JavaScript.
 
 ## Feature
 

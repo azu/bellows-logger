@@ -11,8 +11,8 @@
   "bugs": {
     "url": "https://github.com/azu/bellows-logger/issues"
   },
-  "version": "1.0.0",
-  "description": "POC logger ",
+  "version": "0.1.0",
+  "description": "Flexible/Connectable logger library for JavaScript",
   "main": "lib/index.js",
   "files": [
     "lib",
