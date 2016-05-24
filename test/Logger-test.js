@@ -5,7 +5,7 @@ import Logger from "../src/Logger";
 import LoggerNode from "../src/nodes/LoggerNode";
 import QueryNode from "./fixtures/nodes/QueryNode";
 import SyncNode from "./fixtures/nodes/SyncNode";
-import AsyncNode from "./fixtures/nodes/ASyncNode";
+import AsyncNode from "./fixtures/nodes/AsyncNode";
 import createProcess from "./fixtures/nodes/ProcessNode";
 import ConsoleNode from "./fixtures/nodes/ConsoleNode";
 class TransformNode extends LoggerNode {
