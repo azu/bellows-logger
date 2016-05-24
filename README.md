@@ -78,9 +78,9 @@ logger.log("Yay!!!");// show "Yay!!!" in console
 Node Tree:
 
 ```
-├──enter: root
-	├──enter: SourceNode
-		├──enter: ConsoleNode
+├── root
+	├── SourceNode
+		├── ConsoleNode
 ```
 
 ## Changelog
