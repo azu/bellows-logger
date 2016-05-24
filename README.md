@@ -1,4 +1,4 @@
-# bellows-logger
+# bellows-logger [![Build Status](https://travis-ci.org/azu/bellows-logger.svg?branch=master)](https://travis-ci.org/azu/bellows-logger)
 
 POC logger 
 
