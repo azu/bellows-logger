@@ -8,6 +8,7 @@ import SyncNode from "./fixtures/nodes/SyncNode";
 import AsyncNode from "./fixtures/nodes/AsyncNode";
 import createProcess from "./fixtures/nodes/ProcessNode";
 import ConsoleNode from "./fixtures/nodes/ConsoleNode";
+import TimestampNode from "./fixtures/nodes/TimestampNode";
 class TransformNode extends LoggerNode {
     process(chunk, next) {
         chunk.name = "HAL";

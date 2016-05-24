@@ -1,6 +1,6 @@
 "use strict";
-import LoggerNode from "../../../src/nodes/LoggerNode";
-export default class ConsoleNode extends LoggerNode {
+import DestinationNode from "../../../src/nodes/DestinationNode";
+export default class ConsoleNode extends DestinationNode {
     process(chunk, next) {
         const parentNodeName = this.parentNode.name || "<anonymous>";
         console.log(" => " + parentNodeName + " => ", chunk);
