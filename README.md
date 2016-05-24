@@ -1,20 +1,18 @@
 # bellows-logger [![Build Status](https://travis-ci.org/azu/bellows-logger.svg?branch=master)](https://travis-ci.org/azu/bellows-logger)
 
-POC logger 
+![bellows](./docs/img/bellows.png)
 
-## Architecture
+Flexible logger library for JavaScript.
 
-- Web Audio API like logger
-- LoggerNode connect LoggerNode
+## Feature
 
-<del>
-- Input(Source)
-- Filter
-- Buffer
-- Queue
-- Formatter
-- Output
-</del>
+- [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) like logger
+- `LoggerNode` connect next `LoggerNode`
+    - It is similar with `AudioNode`
+    - `LoggerNode` transform/deny/filter/attach log data 
+
+![webaudioAPI.svg](./docs/img/webaudioAPI.svg)
+
 ### Log format
 
 We call log data as **Chunk**.
@@ -112,3 +110,9 @@ For bugs and feature requests, [please create an issue](https://github.com/azu/b
 ## License
 
 MIT © azu
+
+## Credit
+
+Bellows image
+
+- [File:Bellows (PSF).svg - Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Bellows_(PSF).svg "File:Bellows (PSF).svg - Wikimedia Commons")
