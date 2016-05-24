@@ -11,7 +11,7 @@ Flexible logger library for JavaScript.
     - It is similar with `AudioNode`
     - `LoggerNode` transform/deny/filter/attach log data 
 
-![webaudioAPI.svg](./docs/img/webaudioAPI.svg)
+![Web Audio API](./docs/img/webaudioAPI.png)
 
 ### Log format
 
