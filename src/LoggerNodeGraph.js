@@ -8,7 +8,7 @@
  */
 import {walk} from "./utils/walker";
 /**
- * Create Logger Node Dependencies Graph and traverser it
+ * Create Logger Node Dependencies Graph and traverse it
  */
 export default class LoggerNodeGraph {
     constructor() {
