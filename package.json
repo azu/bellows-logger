@@ -18,7 +18,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha test/",
+    "test:example": "cd example/console-log && npm install && npm test",
+    "test": "mocha test/ && npm run test:example",
     "build": "NODE_ENV=production babel src --out-dir lib --source-maps",
     "watch": "babel src --out-dir lib --watch --source-maps",
     "prepublish": "npm run --if-present build"

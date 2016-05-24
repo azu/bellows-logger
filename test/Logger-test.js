@@ -7,22 +7,16 @@ import QueryNode from "./fixtures/nodes/QueryNode";
 import SyncNode from "./fixtures/nodes/SyncNode";
 import AsyncNode from "./fixtures/nodes/ASyncNode";
 import createProcess from "./fixtures/nodes/ProcessNode";
+import ConsoleNode from "./fixtures/nodes/ConsoleNode";
 class TransformNode extends LoggerNode {
     process(chunk, next) {
         chunk.name = "HAL";
         next(chunk);
     }
 }
-class ConsoleNode extends LoggerNode {
-    process(chunk, next) {
-        const parentNodeName = this.parentNode.name || "<annonymouse>";
-        console.log(" => " + parentNodeName + " => ", chunk);
-        next(chunk);
-    }
-}
 describe("Logger", function () {
     // sync
-    context("when connect SyncNode", () => {
+    context("when connect SyncNode", function () {
         it("should work logging after start", function () {
             const logger = new Logger();
             const sourceNode = logger.context.createSourceNode();
@@ -55,7 +49,7 @@ describe("Logger", function () {
         });
     });
     // async
-    context("when connect AsyncNode", () => {
+    context("when connect AsyncNode", function () {
         it("should work logging after start", function (done) {
             const logger = new Logger();
             const sourceNode = logger.context.createSourceNode();
@@ -69,7 +63,7 @@ describe("Logger", function () {
             // log after start
             logger.log(expectedChunk);
         });
-        it("should work logging before start", function () {
+        it("should work logging before start", function (done) {
             const logger = new Logger();
             const sourceNode = logger.context.createSourceNode();
             const async = new AsyncNode();
@@ -83,7 +77,7 @@ describe("Logger", function () {
             logger.start();
         });
     });
-    context("when connect AsyncNode -> SyncNode", () => {
+    context("when connect AsyncNode -> SyncNode", function () {
         it("should work logging after start", function (done) {
             const logger = new Logger();
             const sourceNode = logger.context.createSourceNode();
@@ -114,7 +108,7 @@ describe("Logger", function () {
         });
     });
     // async
-    it("complex example", function () {
+    it.skip("complex example", function () {
         const logger = new Logger();
         const consoleNode = new ConsoleNode();
         const addNameNode = new TransformNode();

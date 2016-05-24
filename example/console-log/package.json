@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "rm-local-modules",
+    "test": "babel-node example.js"
+  },
+  "dependencies": {
+    "bellows-logger": "file:../../"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "rm-local-modules": "0.0.1"
+  }
+}

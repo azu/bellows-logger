@@ -47,6 +47,7 @@ export default class Logger {
         if (this._isStarted) {
             return;
         }
+        // TODO: check connection
         // start process
         this._loggerContext.process();
         this._isStarted = true;

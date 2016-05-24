@@ -30,6 +30,7 @@ Install with [npm](https://www.npmjs.com/):
 Basic usage of Logger class
 
 ```js
+import {Logger} from "bellows-logger";
 const logger = new Logger();
 logger.log("you can log it!");
 // logger add the log to queue
@@ -48,7 +49,7 @@ This architecture is inspired by Web Audio API.
 You can write `ConsoleNode` that output to `console.log`:
 
 ```js
-import LoggerNode from "../src/nodes/LoggerNode";
+import {LoggerNode} from "bellows-logger";
 class ConsoleNode extends LoggerNode {
     process(chunk, next) {
         // parentNode name
@@ -69,7 +70,7 @@ const sourceNode = logger.context.createSourceNode();
 const consoleNode = new ConsoleNode();
 // connect
 sourceNode.connect(consoleNode);
-// Now, Log actural output to `console`
+// Now, Log actual output to `console`
 
 logger.log("Yay!!!");// show "Yay!!!" in console
 ```

@@ -12,9 +12,9 @@ import LoggerNodeGraph from "./LoggerNodeGraph";
 module.exports = {
     Logger,
     LoggerNode,
-    // for typing
-    SourceNode,
     DestinationNode,
+    // for typing - not main use
+    SourceNode,
     LoggerQueue,
     LoggerContext,
     LoggerNodeGraph
