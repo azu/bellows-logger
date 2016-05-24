@@ -2,11 +2,11 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "preinstall": "rm-local-modules",
+    "pretest": "rm-local-modules && npm i",
     "test": "babel-node example.js"
   },
   "dependencies": {
-    "bellows-logger": "file:../../"
+    "bellows-logger": "file:../.."
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
