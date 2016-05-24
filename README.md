@@ -55,7 +55,7 @@ import {LoggerNode} from "bellows-logger";
 class ConsoleNode extends LoggerNode {
     process(chunk, next) {
         // parentNode name
-        const parentNodeName = this.parentNode.name || "<annonymouse>";
+        const parentNodeName = this.parentNode.name || "<anonymous>";
         console.log(" => " + parentNodeName + " => ", chunk);
         // call next node and pass data
         next(chunk);
