@@ -13,9 +13,13 @@ Flexible logger library for JavaScript.
 
 ![Web Audio API](./docs/img/webaudioAPI.png)
 
-### Log format
+### Log handling
 
-We call log data as **Chunk**.
+We have called log data as **Chunk**.
+
+- **Chunk** is any data format
+- Can implement the transformer as sub class of `LoggerNode`
+- Can implement output log data to where is
 
 ## Install
 
