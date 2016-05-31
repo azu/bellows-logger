@@ -23,6 +23,8 @@
     "test": "test"
   },
   "scripts": {
+    "test:saucelabs": "zuul -- test/*-test.js",
+    "test:browser": "zuul --local 8080 --ui mocha-bdd -- test/*-test.js",
     "test:example": "cd example/console-log && npm install && npm test",
     "test": "mocha test/ && npm run test:example",
     "build": "NODE_ENV=production babel src --out-dir lib --source-maps",
@@ -35,10 +37,13 @@
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015-ie": "^6.6.2",
     "babel-preset-jsdoc-to-assert": "^1.0.1",
     "babel-preset-power-assert": "^1.0.0",
     "babel-register": "^6.9.0",
+    "babelify": "^7.3.0",
     "mocha": "^2.4.5",
-    "power-assert": "^1.4.1"
+    "power-assert": "^1.4.1",
+    "zuul": "^3.10.1"
   }
 }
